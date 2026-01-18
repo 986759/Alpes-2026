@@ -9,7 +9,7 @@ const itineraryData = {
             date: "Vie 16 Oct",
             country: "switzerland",
             title: "San José → Zúrich",
-            location: "Aeropuerto Juan Santamaría, vuelo LX8037, 3:55 PM",
+            location: "Aeropuerto Juan Santamaría, vuelo LX8037, 3:55 P.M",
             transport: {
                 type: "flight",
                 icon: "✈️",
