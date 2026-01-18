@@ -26,14 +26,14 @@ const itineraryData = {
             id: 2,
             dayNumber: "Día 2",
             date: "Sáb 17 Oct",
-            country: "switzerland",
-            title: "Llegada a Suiza",
-            location: "Zúrich → Lucerna",
+            country: "Switzerland",
+            title: "Llegada a Suiza, a las 10:55 am",
+            location: "Zúrich",
             transport: {
                 type: "train",
                 icon: "🚂",
                 details: "Tren Zúrich - Lucerna",
-                note: "Comprar tiquete anticipadamente para mejor precio"
+                note: "Ya hacemos uso del Swiss Travel Pass"
             },
             accommodation: {
                 name: "Galaxy Apartments",
@@ -64,7 +64,7 @@ const itineraryData = {
             transport: {
                 type: "stp",
                 icon: "🚂",
-                details: "Swiss Travel Pass (8 días desde hoy)",
+                details: "Swiss Travel Pass (8 días)",
                 note: "Inicia período de STP"
             },
             accommodation: {
