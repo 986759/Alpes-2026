@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpes 2026 · Suiza, Alemania & Austria</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --alpine-dark: #0f1419;
+            --alpine-blue: #2563eb;
+            --alpine-blue-light: #3b82f6;
+            --alpine-light: #f0f9ff;
+            --alpine-snow: #ffffff;
+            --alpine-red: #dc2626;
+            --alpine-gold: #f59e0b;
+            --alpine-green: #10b981;
+            --swiss-red: #da291c;
+            --german-black: #000000;
+            --austrian-red: #ed2939;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --text-tertiary: #94a3b8;
+            --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+            --shadow-large: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(to bottom, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header con imagen de fondo */
+        .hero-header {
+            position: relative;
+            height: 60vh;
+            min-height: 500px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.95) 0%, rgba(15, 20, 25, 0.92) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 800"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgb(59,130,246);stop-opacity:0.3" /><stop offset="100%" style="stop-color:rgb(37,99,235);stop-opacity:0.1" /></linearGradient></defs><path d="M0,400 Q360,300 720,400 T1440,400 L1440,800 L0,800 Z" fill="url(%23grad1)"/><path d="M0,450 Q300,380 600,450 T1200,450 T1440,450 L1440,800 L0,800 Z" fill="rgba(255,255,255,0.05)"/><circle cx="200" cy="200" r="3" fill="rgba(255,255,255,0.3)"/><circle cx="800" cy="150" r="2" fill="rgba(255,255,255,0.4)"/><circle cx="1200" cy="250" r="2.5" fill="rgba(255,255,255,0.3)"/><circle cx="400" cy="100" r="2" fill="rgba(255,255,255,0.5)"/></svg>') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at top, rgba(59, 130, 246, 0.15), transparent 50%),
+                        radial-gradient(ellipse at bottom, rgba(15, 20, 25, 0.2), transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 700;
+            color: var(--alpine-snow);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-dates {
+            margin-top: 2rem;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: #fbbf24;
+            font-weight: 600;
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: rgba(251, 191, 36, 0.15);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        /* Timeline sticky */
+        .timeline-container {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 10px 20px rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .timeline {
+            display: flex;
+            overflow-x: auto;
+            padding: 1.5rem 1rem;
+            gap: 0.75rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--alpine-blue) #e2e8f0;
+        }
+
+        .timeline::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .timeline::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        .timeline::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, var(--alpine-blue), var(--alpine-blue-light));
+            border-radius: 4px;
+        }
+
+        .timeline::-webkit-scrollbar-thumb:hover {
+            background: var(--alpine-dark);
+        }
+
+        .day-marker {
+            flex-shrink: 0;
+            min-width: 110px;
+            padding: 1.1rem 1.3rem;
+            border-radius: 16px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .day-marker::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: transparent;
+            border-radius: 16px 16px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .day-marker.switzerland::before {
+            background: var(--swiss-red);
+        }
+
+        .day-marker.germany::before {
+            background: var(--german-black);
+        }
+
+        .day-marker.austria::before {
+            background: var(--austrian-red);
+        }
+
+        .day-marker:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: var(--shadow-large);
+            border-color: var(--alpine-blue);
+        }
+
+        .day-marker.active {
+            background: linear-gradient(135deg, var(--alpine-blue), var(--alpine-blue-light));
+            color: var(--alpine-snow);
+            border-color: var(--alpine-blue);
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-6px) scale(1.08);
+        }
+
+        .day-marker.active::before {
+            background: #fbbf24;
+            height: 5px;
+        }
+
+        .day-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            line-height: 1;
+        }
+
+        .day-date {
+            font-size: 0.7rem;
+            opacity: 0.85;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 500;
+        }
+
+        .day-icon {
+            font-size: 1.3rem;
+            margin-top: 0.5rem;
+            filter: grayscale(0.3);
+        }
+
+        .day-marker.active .day-icon {
+            filter: grayscale(0);
+        }
+
+        /* Contenido principal */
+        .main-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 5rem;
+        }
+
+        .day-content {
+            display: none;
+            animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .day-content.active {
+            display: block;
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: var(--alpine-snow);
+            padding: 3.5rem 3rem;
+            border-radius: 24px;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .day-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 30px) scale(1.1); }
+        }
+
+        .day-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            position: relative;
+            line-height: 1.2;
+        }
+
+        .day-location {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            font-weight: 400;
+        }
+
+        /* Grid de información */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e2e8f0;
+            position: relative;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Header de la info-card */
+        .info-card-header {
+            padding: 1.3rem 2rem;
+            color: white;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .info-card-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 120px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1));
+            pointer-events: none;
+        }
+
+        /* Transporte - Azul profundo */
+        .info-card.transport .info-card-header {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%);
+        }
+
+        /* Alojamiento - Verde bosque */
+        .info-card.accommodation .info-card-header {
+            background: linear-gradient(135deg, #065f46 0%, #047857 50%, #059669 100%);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin: 0;
+            display: inline-block;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            flex-shrink: 0;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        /* Body de la info-card con fondos pálidos */
+        .info-card-body {
+            padding: 1.5rem 2rem;
+        }
+
+        /* Transporte - Azul cielo pálido */
+        .info-card.transport .info-card-body {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        }
+
+        /* Alojamiento - Verde menta pálido */
+        .info-card.accommodation .info-card-body {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        }
+
+        .card-content {
+            color: var(--text-primary);
+            line-height: 1.9;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .card-content strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .card-content em {
+            color: var(--text-secondary);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .card-content small {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Lugares a visitar */
+        .places-section {
+            margin-top: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--alpine-dark);
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 60px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--alpine-blue), var(--alpine-blue-light));
+            border-radius: 3px;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        }
+
+        .place-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-medium);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .place-card:hover {
+            transform: translateX(12px) translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Headers con colores por tipo de lugar */
+        .place-header {
+            padding: 1.3rem 2rem;
+            position: relative;
+            color: white;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        /* Naturaleza - Verde esmeralda */
+        .place-card[data-type="nature"] .place-header {
+            background: linear-gradient(135deg, #047857 0%, #059669 50%, #10b981 100%);
+        }
+
+        /* Castillos/Iglesias - Púrpura real */
+        .place-card[data-type="castle"] .place-header,
+        .place-card[data-type="church"] .place-header {
+            background: linear-gradient(135deg, #6366f1 0%, #818cf8 50%, #a5b4fc 100%);
+        }
+
+        /* Ciudades - Gris slate elegante */
+        .place-card[data-type="city"] .place-header {
+            background: linear-gradient(135deg, #334155 0%, #475569 50%, #64748b 100%);
+        }
+
+        /* Montañas - Azul alpino */
+        .place-card[data-type="mountain"] .place-header,
+        .place-card[data-type="viewpoint"] .place-header {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%);
+        }
+
+        /* Pueblos - Terracota cálido */
+        .place-card[data-type="village"] .place-header {
+            background: linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #f97316 100%);
+        }
+
+        /* Logística - Gris azulado */
+        .place-card[data-type="logistics"] .place-header,
+        .place-card[data-type="flexible"] .place-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+
+        .place-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 150px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1));
+            pointer-events: none;
+        }
+
+        .place-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            line-height: 1.2;
+        }
+
+        .place-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 0.85rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0.7rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Fondos pálidos contrastantes según tipo */
+        .place-body {
+            padding: 1.5rem 2rem;
+        }
+
+        /* Naturaleza - Amarillo pálido cálido */
+        .place-card[data-type="nature"] .place-body {
+            background: linear-gradient(135deg, #fef9c3 0%, #fef08a 100%);
+        }
+
+        /* Castillos/Iglesias - Lavanda pálido */
+        .place-card[data-type="castle"] .place-body,
+        .place-card[data-type="church"] .place-body {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+        }
+
+        /* Ciudades - Gris perlado */
+        .place-card[data-type="city"] .place-body {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        }
+
+        /* Montañas - Azul cielo pálido */
+        .place-card[data-type="mountain"] .place-body,
+        .place-card[data-type="viewpoint"] .place-body {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        }
+
+        /* Pueblos - Melocotón pálido */
+        .place-card[data-type="village"] .place-body {
+            background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
+        }
+
+        /* Logística - Blanco crema */
+        .place-card[data-type="logistics"] .place-body,
+        .place-card[data-type="flexible"] .place-body {
+            background: linear-gradient(135deg, #fafaf9 0%, #f5f5f4 100%);
+        }
+
+        .place-description {
+            color: var(--text-primary);
+            margin-bottom: 1.2rem;
+            line-height: 1.9;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .place-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.85rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--alpine-blue), var(--alpine-blue-light));
+            color: var(--alpine-snow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-large);
+            background: linear-gradient(135deg, var(--alpine-blue-light), var(--alpine-blue));
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--alpine-blue);
+            border: 2px solid var(--alpine-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--alpine-blue);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-large);
+        }
+
+        .btn-maps {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .btn-maps:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Notas importantes */
+        .notes-box {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-left: 6px solid var(--alpine-gold);
+            padding: 2rem 2.5rem;
+            border-radius: 20px;
+            margin-top: 3rem;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid #fde68a;
+        }
+
+        .notes-title {
+            font-weight: 700;
+            color: var(--alpine-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .notes-list {
+            list-style: none;
+            color: var(--text-secondary);
+        }
+
+        .notes-list li {
+            padding-left: 2rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .notes-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--alpine-gold);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Badge opcional */
+        .optional-badge {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            padding: 0.35rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+            display: inline-block;
+        }
+
+        /* Transporte */
+        .transport-route {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin: 2.5rem 0;
+            border-left: 6px solid var(--alpine-blue);
+            box-shadow: var(--shadow-medium);
+            border: 1px solid #bfdbfe;
+        }
+
+        .route-steps {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .route-point {
+            font-weight: 600;
+            color: var(--alpine-dark);
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid #e0f2fe;
+            transition: all 0.3s ease;
+        }
+
+        .route-point:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--alpine-blue);
+        }
+
+        .route-arrow {
+            font-size: 1.5rem;
+            color: var(--alpine-blue);
+            font-weight: 700;
+        }
+
+        .route-details {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .route-details strong {
+            color: var(--text-primary);
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-header {
+                height: 50vh;
+                min-height: 350px;
+            }
+
+            .timeline {
+                padding: 1rem 0.5rem;
+            }
+
+            .day-marker {
+                min-width: 90px;
+                padding: 0.9rem 1rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .day-header {
+                padding: 2.5rem 2rem;
+            }
+
+            .place-card:hover {
+                transform: translateY(-4px);
+            }
+
+            .route-steps {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .place-header,
+            .place-body {
+                padding: 1.5rem 1.8rem;
+            }
+        }
+
+        /* Tag de país */
+        .country-tag {
+            display: inline-block;
+            padding: 0.45rem 1rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .country-tag.switzerland {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        .country-tag.germany {
+            background: linear-gradient(135deg, #18181b, #000000);
+            color: white;
+        }
+
+        .country-tag.austria {
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            color: white;
+        }
+
+        /* Imagen de fondo decorativa en lugares */
+        .place-image-bg {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-medium);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Header -->
+    <header class="hero-header">
+        <div class="hero-content">
+            <h1 class="hero-title">Alpes 2026</h1>
+            <p class="hero-subtitle">Suiza · Alemania · Austria</p>
+            <p class="hero-dates">16 Octubre - 2 Noviembre</p>
+        </div>
+    </header>
+
+    <!-- Timeline -->
+    <div class="timeline-container">
+        <div class="timeline" id="timeline">
+            <!-- Se genera dinámicamente con JavaScript -->
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Se genera dinámicamente con JavaScript -->
+    </main>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
