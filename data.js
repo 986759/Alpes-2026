@@ -29,6 +29,15 @@ const itineraryData = {
             country: "Switzerland",
             title: "Llegada a Suiza, a las 10:55 am",
             location: "Zúrich",
+            places: [
+                {
+                    name: "Zúrich",
+                    time: "Mañana",
+                    duration: "Unas horas",
+                    description: "Recorrido breve por la ciudad, dejar equipaje en estación de tren",
+                    type: "city"
+                }
+            ],
             transport: {
                 type: "train",
                 icon: "🚂",
@@ -40,16 +49,7 @@ const itineraryData = {
                 platform: "VRBO",
                 location: "Lucerna"
             },
-            places: [
-                {
-                    name: "Zúrich",
-                    time: "Mañana",
-                    duration: "Unas horas",
-                    description: "Recorrido breve por la ciudad, dejar equipaje en estación de tren",
-                    type: "city"
-                }
-            ],
-            notes: [
+                        notes: [
                 "Dejar equipaje en la estación de tren de Zúrich",
                 "Comprar Swiss Travel Pass si aplica"
             ]
