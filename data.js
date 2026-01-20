@@ -33,7 +33,7 @@ const itineraryData = {
             places: [
                 {
                     name: "Zúrich",
-                    time: "Mañana",
+                    time: "Tarde",
                     duration: "Unas horas",
                     description: "Recorrido breve por la ciudad, dejar equipaje en estación de tren",
                     type: "city"
