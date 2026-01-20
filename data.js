@@ -19,7 +19,8 @@ const itineraryData = {
             places: [],
             notes: [
                 "Vuelo internacional de larga distancia",
-                "Preparar documentación de viaje"
+                "Preparar documentación de viaje",
+                "Tener Esims Holafly"
             ]
         },
         {
