@@ -96,7 +96,7 @@ const itineraryData = {
             "places": [
                 {
                     "name": "Cascada Stäubifall",
-                    "time": "Salida 6:08 AM",
+                    "time": "Salida 6:18 AM",
                     "duration": "Vuelta a Lucerna 1:31 pm",
                     "arrival": "Llegada a Lucerna 1:41 PM",
                     "description": "Hermosa cascada en los Alpes suizos",
@@ -143,37 +143,34 @@ const itineraryData = {
                     "maps": "https://maps.app.goo.gl/p7iyeBxS7vkfbFb38"
                 },
                 {
-                    "name": "Opción 1: Interlaken",
-                    "time": "Por definir",
-                    "description": "Ciudad turística entre lagos",
-                    "type": "city",
-                    "optional": true
-                },
-                {
-                    "name": "Opción 2: Blausee",
-                    "time": "Por definir",
-                    "description": "Lago azul cristalino",
-                    "type": "nature",
-                    "optional": true
-                },
-                {
-                    "name": "Iseltwald o Giessbach",
-                    "time": "11:40 AM - 4:32 PM",
-                    "duration": "~3.5 horas en el lugar",
-                    "description": "Pueblos pintorescos junto al lago",
-                    "type": "village"
+                    "name": "Kleine Scheidegg",
+                    "time": "10:00 AM",
+                    "duration": "1 hora en el lugar",
+                    "description": "Estación de Montaña con un Lago pintoresco (hay un tren cada 30 min), opción de parar de camino en Wengen otro pueblo de montaña Hermoso",
+                    "type": "mountain"
                 },
                 {
                     "name": "Grindelwald",
                     "time": "Tarde",
-                    "description": "Check-in y exploración del pueblo",
-                    "type": "village"
+                    "description": "Pueblo pintoresco de los Alpes Suizos, desde Klein Kleine Scheidegg, hay un tren cada media hora (dura 40 min en llegar)",
+                    "type": "village",
+                    "duration": "2 horas"
+                },
+                {
+                    "name": "Harder Kulm",
+                    "type": "mountain",
+                    "time": "Tarde",
+                    "duration": "2 horas",
+                    "description": "En el pueblo de Interlaken hay un mirador muy bonito (se sube en Funikular), tenemos opción de ver el final del día en ese lugar o de recorrer el pueblo de Interlaken",
+                    "maps": "",
+                    "optional": false
                 }
             ],
             "notes": [
                 "Día con varias opciones a decidir según clima y preferencias",
                 "Considerar rutas: Lauterbrunnen-Wengen-Klein Scheidegg-Grindelwald-Interlaken",
-                "O ruta alternativa: Interlaken-Iseltwald-Blausee-Brienz"
+                "O ruta alternativa: Interlaken-Iseltwald-Blausee-Brienz",
+                "Tren de Lucerna a Lauterbrunnen 6:06 am llegada 8:26 am"
             ]
         },
         {
